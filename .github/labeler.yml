@@ -7,29 +7,8 @@ github-ations:
 readme:
   - 'README.md'
 
-packages-requirements:
-  - 'requirements.txt'
-
-packages-setup:
-  - 'setup.py'
-
-source:
-  - 'src/**/*.py'
+sources:
+  - 'src/**/*'
 
 test:
-  - 'test/*.py'
-
-src:
-  - 'src/*.py'
-
-notebook:
-  - 'notebook/*.ipynb'
-
-datasets:
-  - 'datasets/*'
-
-weights:
-  - 'weights/*'
-
-models:
-  - 'models/*'
+  - 'test/*'
