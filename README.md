@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="javascriptLogo" style="height:50px;">
     <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="typescriptLogo" style="height:50px;">
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="reactLogo" style="height:50px;">
-    <img src="https://user-images.githubusercontent.com/59691442/185226526-8cb9c3b2-7d1a-41b5-ba1e-50ba1f5b391e.png" alt="tensorflowLogo" style="height:50px;">
+    <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="tensorflowLogo" style="height:50px;">
     <img src="https://user-images.githubusercontent.com/59691442/172961027-fd9185a5-da77-46e3-97b1-54e99e242822.png" alt="opencvLogo" style="height:50px;">
 </p>
 
@@ -22,6 +22,10 @@ Placeholder
 ## Quick Start
 
 Placeholder
+
+## Code style
+
+The project is formatted using ESLint and Xo.
 
 ## GitHub Actions
 
@@ -46,6 +50,9 @@ React with GitHub pages:
 
 Eslint:  
 <https://eslint.org/docs/latest/user-guide/getting-started>
+
+Xo code-style:  
+<https://github.com/xojs/xo>
 
 ## Contributors
 
