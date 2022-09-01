@@ -15,6 +15,8 @@ This is a website that allows you to upload an image, and it will detect faces i
 Click on the following link to go to the website:  
 <https://im-rises.github.io/face-recognition-website/>
 
+It is programmed in Javascript, TypeScript and React for the web part and uses TensorFlow and OpenCV for the AI and video part.
+
 ## Screenshots
 
 Placeholder
