@@ -10,7 +10,9 @@
     "@types/node": "^16.11.56",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
+    "eslint": "^8.23.0",
     "gulp": "^4.0.2",
+    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -48,5 +50,11 @@
   },
   "xo": {
     "extends": "xo-react"
+  },
+  "rules": {
+    "eol-last": [
+      "error",
+      "always"
+    ]
   }
 }
