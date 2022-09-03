@@ -809,3 +809,14 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
+
+# Created by https://www.toptal.com/developers/gitignore/api/sass
+# Edit at https://www.toptal.com/developers/gitignore?templates=sass
+
+### Sass ###
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+# End of https://www.toptal.com/developers/gitignore/api/sass
