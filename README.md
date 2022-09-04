@@ -11,13 +11,14 @@
 
 ## Description
 
-This is a website that allows you to upload an image, and it will detect faces in the image, and then it will recognize the faces.
+This is a website that allows you to upload an image, and it will detect faces in the image, and then it will recognize
+the faces.
 
 Click on the following link to go to the website:  
 <https://im-rises.github.io/face-recognition-website/>
 
-It is programmed in Javascript, TypeScript and React for the web part and uses TensorFlow and OpenCV for the AI and video part.
-It works with Windows, Linux, MacOs, Android and iOS.
+It is programmed in Javascript, TypeScript and React for the web part and uses TensorFlow and OpenCV for the AI and
+video part. It works with Windows, Linux, MacOs, Android and iOS.
 
 <!--
 Should I use SASS or CSS?
@@ -31,7 +32,8 @@ Placeholder
 
 Placeholder
 
-You can find the source code in the `main`, `staging`, and `develop` branches. The build website is in the `gh-pages` branch.
+You can find the source code in the `main`, `staging`, and `develop` branches. The build website is in the `gh-pages`
+branch.
 
 ## Quick Start
 
@@ -49,6 +51,7 @@ The project is formatted using ESLint and Xo.
 [![CodeQL](https://github.com/Im-Rises/face-recognition-website/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/Im-Rises/face-recognition-website/actions/workflows/codeql.yml)
 
 The project is set up to run the following actions:
+
 - pages-build-deployment : Builds the website and deploys it to GitHub Pages.
 - node.js.yml : Runs the tests for the Node.js project.
 - eslint.yml : Runs the ESLint linter on the project.
@@ -70,6 +73,9 @@ Eslint:
 
 Xo code-style:  
 <https://github.com/xojs/xo>
+
+Mediapipe:  
+<https://google.github.io/mediapipe/solutions/face_detection#javascript-solution-api>
 
 ## Contributors
 

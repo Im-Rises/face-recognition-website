@@ -2,14 +2,51 @@ import React, {useEffect} from 'react';
 import Webcam from 'react-webcam';
 import * as tf from '@tensorflow/tfjs';
 import './App.css';
+import '@tensorflow-models/blazeface';
+import {FaceDetection} from '@mediapipe/face_detection';
 
 const canvasBufferRef = React.createRef<HTMLCanvasElement>();
+const webcamRef = React.createRef<Webcam>();
+
+const faceDetection = new FaceDetection({
+	locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.0/${file}`,
+});
+
+faceDetection.onResults(results => {
+	const canvas = canvasBufferRef.current;
+	if (canvas === null) {
+		return;
+	}
+
+	const ctx = canvas.getContext('2d');
+	if (ctx === null) {
+		return;
+	}
+
+	const video = webcamRef.current;
+	if (video === null) {
+		return;
+	}
+
+	if (results.detections.length > 0) {
+		const detection = results.detections[0];
+		const box = detection.boundingBox;
+		const landmarksss = detection.landmarks;
+
+		// Ctx.strokeStyle = 'red';
+		// ctx.lineWidth = 2;
+		ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
+		// Ctx.strokeRect(box.xCenter, box.yCenter, box.width, box.height);
+	} else {
+		ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
+	}
+});
 
 function App() {
 	useEffect(() => {
 		setInterval(() => {
-			console.log('Hello');
-		}, 1000);
+			updateCanvasBuffer();
+		}, 40);
 	}, []);
 
 	return (
@@ -18,8 +55,10 @@ function App() {
 				<h1 className={'title'}>Face Recognition</h1>
 			</div>
 			<div className={'cam'}>
-				<Webcam audio={false} style={{display: 'none'}}/>
-				<canvas className={'canvas-buffer'} ref={canvasBufferRef}/>
+				<Webcam audio={false} style={{width: 0, height: 0}}
+					ref={webcamRef}/>
+				<canvas className={'canvas-buffer'} ref={canvasBufferRef}
+				/>
 			</div>
 			<div>
 				<input type='file' multiple accept='image/*' onChange={onImageChange}/>
@@ -33,31 +72,36 @@ function App() {
 				<canvas id={'cropped-face-canvas'}/>
 			</div>
 			<div>
-				<textarea>Output here</textarea>
+				<textarea/>
 				<button>Predict</button>
 			</div>
 		</div>
 	);
 }
 
-// UseEffect(() => {
-//
-// 	const canvas = canvasBufferRef.current;
-// 	if (canvas === null) {
-// 		return;
-// 	}
-//
-// 	const context = canvas.getContext('2d');
-// 	if (context === null) {
-// 		return;
-// 	}
-//
-// 	context.drawImage(document.querySelector('video')!, 0, 0, 640, 480);
-//
-// 	return () => {
-// 		clearInterval(interval);
-// 	};
-// }, []);
+// Async function loadModel() {
+// 	const model = await tf.loadLayersModel('http://localhost:3000/model.json');
+// 	model.summary();
+// }
+
+function updateCanvasBuffer() {
+	const video = webcamRef.current;
+	const canvas = canvasBufferRef.current;
+	if (video === null || canvas === null) {
+		return;
+	}
+
+	const ctx = canvas.getContext('2d');
+	if (video.video === null || ctx === null) {
+		return;
+	}
+
+	canvas.width = video.video.videoWidth;
+	canvas.height = video.video.videoHeight;
+
+	// Void faceDetection.send({image: video.video});
+	ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
+}
 
 function onImageChange(event: React.ChangeEvent<HTMLInputElement>) {
 	const {files} = event.target;
@@ -82,10 +126,5 @@ function onImageChange(event: React.ChangeEvent<HTMLInputElement>) {
 	// tensor.print();
 	// };
 }
-
-// Async function loadModel() {
-// 	const model = await tf.loadLayersModel('http://localhost:3000/model.json');
-// 	model.summary();
-// }
 
 export default App;

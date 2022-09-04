@@ -1510,6 +1510,11 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@mediapipe/face_detection@^0.4.1646425229":
+  version "0.4.1646425229"
+  resolved "https://registry.yarnpkg.com/@mediapipe/face_detection/-/face_detection-0.4.1646425229.tgz#76cd4b4938d5a641dfdad2951ff9f37dcf18e636"
+  integrity sha512-aeCN+fRAojv9ch3NXorP6r5tcGVLR3/gC1HmtqB0WEZBRXrdP6/3W/sGR0dHr1iT6ueiK95G9PVjbzFosf/hrg==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -1719,6 +1724,11 @@
     "@svgr/plugin-jsx" "^5.5.0"
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
+
+"@tensorflow-models/blazeface@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@tensorflow-models/blazeface/-/blazeface-0.0.7.tgz#0a16499a0cc97fc87e11ae1f78140731c5f63bf2"
+  integrity sha512-+hInPkvHJoubfiXlmNuF3SCucZvU6W1PMC25IV99NSAftJUpKvLokfF93iX8UkOFQCXkPFbnLKacGfGlbjgvMw==
 
 "@tensorflow/tfjs-backend-cpu@3.20.0":
   version "3.20.0"
