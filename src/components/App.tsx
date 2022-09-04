@@ -1,19 +1,20 @@
 import React, {useEffect} from 'react';
 import Webcam from 'react-webcam';
 import * as tf from '@tensorflow/tfjs';
+import blazeface from '@tensorflow-models/blazeface';
 import './App.css';
-import '@tensorflow-models/blazeface';
 
 const canvasBufferRef = React.createRef<HTMLCanvasElement>();
 const webcamRef = React.createRef<Webcam>();
+let faceDetector: blazeface.BlazeFaceModel;
 
 function App() {
 	useEffect(() => {
 		setInterval(() => {
 			updateCanvasBuffer();
 		}, 40);
+		setInterval(detectFaces, 100);
 	}, []);
-
 	return (
 		<div>
 			<div>
@@ -65,6 +66,27 @@ function updateCanvasBuffer() {
 	canvas.height = video.video.videoHeight;
 
 	ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
+}
+
+async function detectFaces() {
+	if (faceDetector === null) {
+		faceDetector = await blazeface.load();
+	} else {
+		const canvas = canvasBufferRef.current;
+		if (canvas === null) {
+			return;
+		}
+
+		const faces = await faceDetector.estimateFaces(canvas);
+
+		if (faces.length > 0) {
+			// Const [x1, y1] = faces[0].topLeft[0];
+			// const [x2, y2] = faces[0].bottomRight;
+			console.log('here');
+			// Const width = x2 - x1;
+			// const height = y2 - y1;
+		}
+	}
 }
 
 function onImageChange(event: React.ChangeEvent<HTMLInputElement>) {
