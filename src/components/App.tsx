@@ -3,44 +3,9 @@ import Webcam from 'react-webcam';
 import * as tf from '@tensorflow/tfjs';
 import './App.css';
 import '@tensorflow-models/blazeface';
-import {FaceDetection} from '@mediapipe/face_detection';
 
 const canvasBufferRef = React.createRef<HTMLCanvasElement>();
 const webcamRef = React.createRef<Webcam>();
-
-const faceDetection = new FaceDetection({
-	locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.0/${file}`,
-});
-
-faceDetection.onResults(results => {
-	const canvas = canvasBufferRef.current;
-	if (canvas === null) {
-		return;
-	}
-
-	const ctx = canvas.getContext('2d');
-	if (ctx === null) {
-		return;
-	}
-
-	const video = webcamRef.current;
-	if (video === null) {
-		return;
-	}
-
-	if (results.detections.length > 0) {
-		const detection = results.detections[0];
-		const box = detection.boundingBox;
-		const landmarksss = detection.landmarks;
-
-		// Ctx.strokeStyle = 'red';
-		// ctx.lineWidth = 2;
-		ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
-		// Ctx.strokeRect(box.xCenter, box.yCenter, box.width, box.height);
-	} else {
-		ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
-	}
-});
 
 function App() {
 	useEffect(() => {
@@ -99,7 +64,6 @@ function updateCanvasBuffer() {
 	canvas.width = video.video.videoWidth;
 	canvas.height = video.video.videoHeight;
 
-	// Void faceDetection.send({image: video.video});
 	ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
 }
 
