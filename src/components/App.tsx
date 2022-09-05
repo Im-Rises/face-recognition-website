@@ -26,28 +26,13 @@ const App = (): JSX.Element => {
 			}),
 	});
 
-	const getFaceImage = () => {
-		const canvas = canvasBufferRef.current;
-		const context = canvas!.getContext('2d');
-
-		const croppedCanvas = croppedImageRef.current;
-		const croppedContext = croppedCanvas!.getContext('2d');
-		croppedContext!.drawImage(canvas!, boundingBox[0].xCenter * canvas!.width, boundingBox[0].yCenter * canvas!.height, boundingBox[0].width * canvas!.width, boundingBox[0].height * canvas!.height, 0, 0, 100, 100);
-
-		const imageData = context!.getImageData(
-			boundingBox[0].xCenter * canvas!.width, boundingBox[0].yCenter * canvas!.height, boundingBox[0].width * canvas!.width, boundingBox[0].height * canvas!.height,
-		);
-	};
-
 	useEffect(() => {
 		const canvas = canvasBufferRef.current;
-
-		const video = (webcamRef! as RefObject<Webcam>).current;
+		const video = (webcamRef! as RefObject<Webcam>).current;// Dirty bug here
 		drawInCanvas(video!.video!, canvas!);
 
 		if (facesDetected) {
 			drawRectangle(canvas!, boundingBox);
-			// GetFaceImage(canvas!, boundingBox);
 		}
 	});
 
@@ -63,7 +48,10 @@ const App = (): JSX.Element => {
 				/>
 				<canvas ref={canvasBufferRef}/>
 				<button>On/Off</button>
-				<button onClick={getFaceImage}>Cropped face</button>
+				<button onClick={() => {
+					cropGetFaceImageVideo(boundingBox);
+				}}>Cropped face
+				</button>
 			</div>
 			<div>
 				<input type='file' multiple accept='image/*' onChange={onImageChange}/>
@@ -72,8 +60,6 @@ const App = (): JSX.Element => {
 				<canvas id={'img-input-canvas'}/>
 			</div>
 			<div>
-				<button>Crop from video</button>
-				<button>Crop from input</button>
 				<canvas id={'cropped-face-canvas'} ref={croppedImageRef}/>
 			</div>
 			<div>
@@ -88,7 +74,6 @@ function drawInCanvas(video: HTMLVideoElement, canvas: HTMLCanvasElement) {
 	const context = canvas.getContext('2d');
 	canvas.width = video.videoWidth;
 	canvas.height = video.videoHeight;
-
 	context!.drawImage(video, 0, 0, canvas.width, canvas.height);
 }
 
@@ -101,25 +86,38 @@ function drawRectangle(canvas: HTMLCanvasElement, boundingBox: NormalizedRect[])
 	context!.stroke();
 }
 
+function cropGetFaceImageVideo(boundingBox: NormalizedRect[]) {
+	const canvas = canvasBufferRef.current;
+	const context = canvas!.getContext('2d');
+
+	const croppedCanvas = croppedImageRef.current;
+	const croppedContext = croppedCanvas!.getContext('2d');
+	croppedContext!.drawImage(canvas!, boundingBox[0].xCenter * canvas!.width, boundingBox[0].yCenter * canvas!.height, boundingBox[0].width * canvas!.width, boundingBox[0].height * canvas!.height, 0, 0, 100, 100);
+
+	const imageData = context!.getImageData(
+		boundingBox[0].xCenter * canvas!.width, boundingBox[0].yCenter * canvas!.height, boundingBox[0].width * canvas!.width, boundingBox[0].height * canvas!.height,
+	);
+}
+
 function onImageChange(event: React.ChangeEvent<HTMLInputElement>) {
 	const {files} = event.target;
 
 	const file = files![0];
-	// Const image = document.createElement('img');
-	// image.src = URL.createObjectURL(file);
-	// image.onload = () => {
-	// Const canvas = document.querySelector('canvas')!;
-	// Const canvas = document.getElementById('img-input-canvas')!;
-	// Const ctx = canvas.getContext('2d')!;
-	// canvas.width = image.width;
-	// canvas.height = image.height;
-	// const context = canvas.getContext('2d')!;
-	// context.drawImage(image, 0, 0);
-	// const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-	// Const data = imageData.data;
-	// const tensor = tf.browser.fromPixels(imageData, 4);
-	// tensor.print();
-	// };
+	const image = document.createElement('img');
+	image.src = URL.createObjectURL(file);
+	image.onload = () => {
+		const canvas = document.querySelector('canvas')!;
+		// Const canvas = document.getElementById('img-input-canvas')!;
+		const ctx = canvas.getContext('2d')!;
+		canvas.width = image.width;
+		canvas.height = image.height;
+		const context = canvas.getContext('2d')!;
+		context.drawImage(image, 0, 0);
+		const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+		const {data} = imageData;
+		// Const tensor = tf.browser.fromPixels(imageData, 4);
+		// tensor.print();
+	};
 }
 
 export default App;
