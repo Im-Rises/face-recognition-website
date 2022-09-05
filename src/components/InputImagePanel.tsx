@@ -1,14 +1,17 @@
 import type {RefObject} from 'react';
 import React, {useEffect} from 'react';
+import type {NormalizedRect} from '@mediapipe/face_detection';
+import {Camera} from '@mediapipe/camera_utils';
 import FaceDetection from '@mediapipe/face_detection';
+import blazeface from '@tensorflow-models/blazeface';
 import {useFaceDetection} from 'react-use-face-detection';
-
-const imgRef: RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
-const canvasBufferFaceRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
 type InputImageParams = {
 	outputCanvasRef: RefObject<HTMLCanvasElement>;
 };
+
+const imageRef: RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
+const canvasBufferFaceRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
 const InputImagePanel = (params: InputImageParams) => {
 	const {imgRef, boundingBox, isLoading, detected, facesDetected} = useFaceDetection({
@@ -20,13 +23,9 @@ const InputImagePanel = (params: InputImageParams) => {
 		}),
 	});
 
-	useEffect(() => {
-
-	});
-
 	return (
 		<div>
-			<img ref={imgRef} alt={'Selected Image'}/>
+			<img ref={imageRef} alt={'Selected Image'}/>
 			<canvas ref={canvasBufferFaceRef}/>
 			<input type='file' multiple accept='image/*' onChange={onImageChange}/><input type='text'
 				placeholder={'https://myimagelink.png'}/>
@@ -41,7 +40,7 @@ const InputImagePanel = (params: InputImageParams) => {
 const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 	const {files} = event.target;
 	const file = files![0];
-	const image = imgRef.current!;
+	const image = imageRef.current!;
 	image.src = URL.createObjectURL(file);
 	image.onload = () => {
 		const canvas = document.querySelector('canvas')!;
@@ -58,4 +57,3 @@ const cropGetFaceImage = (canvas: HTMLImageElement, outputCanvas: HTMLCanvasElem
 };
 
 export default InputImagePanel;
-
