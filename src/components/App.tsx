@@ -1,30 +1,53 @@
+import type {RefObject} from 'react';
 import React, {useEffect} from 'react';
 import Webcam from 'react-webcam';
-import * as tf from '@tensorflow/tfjs';
-import blazeface from '@tensorflow-models/blazeface';
-import './App.css';
+import type {CameraOptions} from 'react-use-face-detection';
+import {useFaceDetection} from 'react-use-face-detection';
+import type {NormalizedRect} from '@mediapipe/face_detection';
+import FaceDetection from '@mediapipe/face_detection';
+import {Camera} from '@mediapipe/camera_utils';
 
-const canvasBufferRef = React.createRef<HTMLCanvasElement>();
-const webcamRef = React.createRef<Webcam>();
-let faceDetector: blazeface.BlazeFaceModel;
+const canvasBufferRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
+const croppedImageRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
-function App() {
+const App = (): JSX.Element => {
+	const {webcamRef, boundingBox, isLoading, detected, facesDetected} = useFaceDetection({
+		faceDetectionOptions: {
+			model: 'short',
+		},
+		faceDetection: new FaceDetection.FaceDetection({
+			locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`,
+		}),
+		camera: ({mediaSrc, onFrame, width, height}: CameraOptions) =>
+			new Camera(mediaSrc, {
+				onFrame,
+				width,
+				height,
+			}),
+	});
+
 	useEffect(() => {
-		setInterval(() => {
-			updateCanvasBuffer();
-		}, 40);
-		setInterval(detectFaces, 100);
-	}, []);
+		const canvas = canvasBufferRef.current;
+		const video = webcamRef!.current;
+		drawInCanvas(video.video, canvas!);
+
+		if (facesDetected) {
+			drawRectangle(canvas!, boundingBox);
+			getFaceImage(canvas!, boundingBox);
+		}
+	});
+
 	return (
 		<div>
 			<div>
 				<h1 className={'title'}>Face Recognition</h1>
 			</div>
 			<div className={'cam'}>
-				<Webcam audio={false} style={{width: 0, height: 0}}
-					ref={webcamRef}/>
-				<canvas className={'canvas-buffer'} ref={canvasBufferRef}
+				<Webcam
+					ref={webcamRef}
+					style={{width: 0, height: 0}}
 				/>
+				<canvas ref={canvasBufferRef}/>
 			</div>
 			<div>
 				<input type='file' multiple accept='image/*' onChange={onImageChange}/>
@@ -35,7 +58,7 @@ function App() {
 			<div>
 				<button>Crop from video</button>
 				<button>Crop from input</button>
-				<canvas id={'cropped-face-canvas'}/>
+				<canvas id={'cropped-face-canvas'} ref={croppedImageRef}/>
 			</div>
 			<div>
 				<textarea/>
@@ -43,59 +66,41 @@ function App() {
 			</div>
 		</div>
 	);
+};
+
+function drawInCanvas(video: HTMLVideoElement, canvas: HTMLCanvasElement) {
+	const context = canvas.getContext('2d');
+	canvas.width = video.videoWidth;
+	canvas.height = video.videoHeight;
+
+	context!.drawImage(video, 0, 0, canvas.width, canvas.height);
 }
 
-// Async function loadModel() {
-// 	const model = await tf.loadLayersModel('http://localhost:3000/model.json');
-// 	model.summary();
-// }
-
-function updateCanvasBuffer() {
-	const video = webcamRef.current;
-	const canvas = canvasBufferRef.current;
-	if (video === null || canvas === null) {
-		return;
-	}
-
-	const ctx = canvas.getContext('2d');
-	if (video.video === null || ctx === null) {
-		return;
-	}
-
-	canvas.width = video.video.videoWidth;
-	canvas.height = video.video.videoHeight;
-
-	ctx.drawImage(video.video, 0, 0, canvas.width, canvas.height);
+function drawRectangle(canvas: HTMLCanvasElement, boundingBox: NormalizedRect[]) {
+	const context = canvas.getContext('2d');
+	context!.beginPath();
+	context!.lineWidth = 2;
+	context!.strokeStyle = 'red';
+	context!.rect(boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height);
+	context!.stroke();
 }
 
-async function detectFaces() {
-	if (faceDetector === null) {
-		faceDetector = await blazeface.load();
-	} else {
-		const canvas = canvasBufferRef.current;
-		if (canvas === null) {
-			return;
-		}
+function getFaceImage(canvas: HTMLCanvasElement, boundingBox: NormalizedRect[]) {
+	const context = canvas.getContext('2d');
 
-		const faces = await faceDetector.estimateFaces(canvas);
+	const croppedCanvas = croppedImageRef.current;
+	const croppedContext = croppedCanvas!.getContext('2d');
+	croppedContext!.drawImage(canvas, boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height, 0, 0, 100, 100);
 
-		if (faces.length > 0) {
-			// Const [x1, y1] = faces[0].topLeft[0];
-			// const [x2, y2] = faces[0].bottomRight;
-			console.log('here');
-			// Const width = x2 - x1;
-			// const height = y2 - y1;
-		}
-	}
+	const imageData = context!.getImageData(
+		boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height,
+	);
 }
 
 function onImageChange(event: React.ChangeEvent<HTMLInputElement>) {
 	const {files} = event.target;
-	if (files === null) {
-		return;
-	}
 
-	const file = files[0];
+	const file = files![0];
 	// Const image = document.createElement('img');
 	// image.src = URL.createObjectURL(file);
 	// image.onload = () => {
