@@ -1772,6 +1772,11 @@
     "@svgr/plugin-svgo" "^5.5.0"
     "loader-utils" "^2.0.0"
 
+"@tensorflow-models/blazeface@^0.0.7":
+  "integrity" "sha512-+hInPkvHJoubfiXlmNuF3SCucZvU6W1PMC25IV99NSAftJUpKvLokfF93iX8UkOFQCXkPFbnLKacGfGlbjgvMw=="
+  "resolved" "https://registry.npmjs.org/@tensorflow-models/blazeface/-/blazeface-0.0.7.tgz"
+  "version" "0.0.7"
+
 "@tensorflow/tfjs-backend-cpu@3.20.0":
   "integrity" "sha512-gf075YaBLwSAAiUwa0D4GvYyUBhbJ1BVSivUNQmUfGKvIr2lIhF0qstBr033YTc3lhkbFSHEEPAHh/EfpqyjXQ=="
   "resolved" "https://registry.npmjs.org/@tensorflow/tfjs-backend-cpu/-/tfjs-backend-cpu-3.20.0.tgz"
@@ -1792,12 +1797,12 @@
     "@types/webgl2" "0.0.6"
     "seedrandom" "^3.0.5"
 
-"@tensorflow/tfjs-converter@3.20.0":
+"@tensorflow/tfjs-converter@^3.1.0", "@tensorflow/tfjs-converter@3.20.0":
   "integrity" "sha512-8EIYqtQwvSYw9GFNW2OFU8Qnl/FQF/kKAsQJoORYaZ419WJo+FIZWbAWDtCpJSAgkgoHH1jYWgV9H313cVmqxg=="
   "resolved" "https://registry.npmjs.org/@tensorflow/tfjs-converter/-/tfjs-converter-3.20.0.tgz"
   "version" "3.20.0"
 
-"@tensorflow/tfjs-core@3.20.0":
+"@tensorflow/tfjs-core@^3.1.0", "@tensorflow/tfjs-core@3.20.0":
   "integrity" "sha512-L16JyVA4a8jFJXFgB9/oYZxcGq/GfLypt5dMVTyedznARZZ9SiY/UMMbo3IKl9ZylG1dOVVTpjzV3EvBYfeJXw=="
   "resolved" "https://registry.npmjs.org/@tensorflow/tfjs-core/-/tfjs-core-3.20.0.tgz"
   "version" "3.20.0"

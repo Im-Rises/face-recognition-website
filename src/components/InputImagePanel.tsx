@@ -1,38 +1,37 @@
 import type {RefObject} from 'react';
-import React from 'react';
-import type {NormalizedRect} from '@mediapipe/face_detection';
-import {Camera} from '@mediapipe/camera_utils';
+import React, {useEffect} from 'react';
 import FaceDetection from '@mediapipe/face_detection';
+import {useFaceDetection} from 'react-use-face-detection';
+
+const imgRef: RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
+const canvasBufferFaceRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
 type InputImageParams = {
 	outputCanvasRef: RefObject<HTMLCanvasElement>;
 };
 
-const imageRef: RefObject<HTMLImageElement> = React.createRef<HTMLImageElement>();
-const canvasBufferFaceRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
-
 const InputImagePanel = (params: InputImageParams) => {
-	const faceDetection = new FaceDetection.FaceDetection({
-		locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection@0.0/${file}`,
+	const {imgRef, boundingBox, isLoading, detected, facesDetected} = useFaceDetection({
+		faceDetectionOptions: {
+			model: 'short',
+		},
+		faceDetection: new FaceDetection.FaceDetection({
+			locateFile: file => `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${file}`,
+		}),
 	});
 
-	faceDetection.onResults(() => {
-		console.log('onResults');
+	useEffect(() => {
+
 	});
 
 	return (
 		<div>
-			<img ref={imageRef} alt={'Selected Image'}/>
+			<img ref={imgRef} alt={'Selected Image'}/>
 			<canvas ref={canvasBufferFaceRef}/>
 			<input type='file' multiple accept='image/*' onChange={onImageChange}/><input type='text'
 				placeholder={'https://myimagelink.png'}/>
 			<button>Validate image from link</button>
 			<button onClick={() => {
-				const result = async () => {
-					await faceDetection.send({image: imageRef.current!});
-				};
-
-				console.log(result());
 			}}>Crop face
 			</button>
 		</div>
@@ -42,7 +41,7 @@ const InputImagePanel = (params: InputImageParams) => {
 const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 	const {files} = event.target;
 	const file = files![0];
-	const image = imageRef.current!;
+	const image = imgRef.current!;
 	image.src = URL.createObjectURL(file);
 	image.onload = () => {
 		const canvas = document.querySelector('canvas')!;

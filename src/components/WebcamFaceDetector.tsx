@@ -7,12 +7,12 @@ import type {NormalizedRect} from '@mediapipe/face_detection';
 import FaceDetection from '@mediapipe/face_detection';
 import {Camera} from '@mediapipe/camera_utils';
 
+let cameraEnabled = false;
+
 type CameraParams = {
 	canvasRef: RefObject<HTMLCanvasElement>;
 	outputCanvasRef: RefObject<HTMLCanvasElement>;
 };
-
-let cameraEnabled = false;
 
 const WebcamFaceDetector = (params: CameraParams) => {
 	const {webcamRef, boundingBox, isLoading, detected, facesDetected} = useFaceDetection({
