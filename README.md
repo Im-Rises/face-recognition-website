@@ -39,6 +39,20 @@ branch.
 
 Placeholder
 
+## Deployment
+
+To deploy the website, you need to run the following command:
+
+```bash
+npm run deploy
+```
+
+or if you are using yarn:
+
+```bash 
+yarn deploy
+```
+
 ## Code style
 
 The project is formatted using ESLint and Xo.

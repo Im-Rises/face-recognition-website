@@ -26,14 +26,28 @@ const App = (): JSX.Element => {
 			}),
 	});
 
+	const getFaceImage = () => {
+		const canvas = canvasBufferRef.current;
+		const context = canvas!.getContext('2d');
+
+		const croppedCanvas = croppedImageRef.current;
+		const croppedContext = croppedCanvas!.getContext('2d');
+		croppedContext!.drawImage(canvas!, boundingBox[0].xCenter * canvas!.width, boundingBox[0].yCenter * canvas!.height, boundingBox[0].width * canvas!.width, boundingBox[0].height * canvas!.height, 0, 0, 100, 100);
+
+		const imageData = context!.getImageData(
+			boundingBox[0].xCenter * canvas!.width, boundingBox[0].yCenter * canvas!.height, boundingBox[0].width * canvas!.width, boundingBox[0].height * canvas!.height,
+		);
+	};
+
 	useEffect(() => {
 		const canvas = canvasBufferRef.current;
-		const video = webcamRef!.current;
-		drawInCanvas(video.video, canvas!);
+
+		const video = (webcamRef! as RefObject<Webcam>).current;
+		drawInCanvas(video!.video!, canvas!);
 
 		if (facesDetected) {
 			drawRectangle(canvas!, boundingBox);
-			getFaceImage(canvas!, boundingBox);
+			// GetFaceImage(canvas!, boundingBox);
 		}
 	});
 
@@ -48,6 +62,8 @@ const App = (): JSX.Element => {
 					style={{width: 0, height: 0}}
 				/>
 				<canvas ref={canvasBufferRef}/>
+				<button>On/Off</button>
+				<button onClick={getFaceImage}>Cropped face</button>
 			</div>
 			<div>
 				<input type='file' multiple accept='image/*' onChange={onImageChange}/>
@@ -83,18 +99,6 @@ function drawRectangle(canvas: HTMLCanvasElement, boundingBox: NormalizedRect[])
 	context!.strokeStyle = 'red';
 	context!.rect(boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height);
 	context!.stroke();
-}
-
-function getFaceImage(canvas: HTMLCanvasElement, boundingBox: NormalizedRect[]) {
-	const context = canvas.getContext('2d');
-
-	const croppedCanvas = croppedImageRef.current;
-	const croppedContext = croppedCanvas!.getContext('2d');
-	croppedContext!.drawImage(canvas, boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height, 0, 0, 100, 100);
-
-	const imageData = context!.getImageData(
-		boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height,
-	);
 }
 
 function onImageChange(event: React.ChangeEvent<HTMLInputElement>) {
