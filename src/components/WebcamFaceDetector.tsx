@@ -7,7 +7,7 @@ import type {NormalizedRect} from '@mediapipe/face_detection';
 import FaceDetection from '@mediapipe/face_detection';
 import {Camera} from '@mediapipe/camera_utils';
 
-let cameraEnabled = false;
+const canvasVideoBuffer: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
 type CameraParams = {
 	canvasRef: RefObject<HTMLCanvasElement>;
@@ -32,9 +32,9 @@ const WebcamFaceDetector = (params: CameraParams) => {
 
 	useEffect(() => {
 		const canvas = params.canvasRef.current;
-		const video = (webcamRef! as RefObject<Webcam>).current;// Dirty bug here
+		const video = (webcamRef! as RefObject<Webcam>).current;
 		drawInCanvas(video!.video!, canvas!);
-
+		drawInCanvas(video!.video!, canvasVideoBuffer.current!);
 		if (facesDetected) {
 			drawRectangle(canvas!, boundingBox);
 		}
@@ -48,12 +48,9 @@ const WebcamFaceDetector = (params: CameraParams) => {
 				style={{width: 0, height: 0}}
 			/>
 			<canvas ref={params.canvasRef}/>
+			<canvas ref={canvasVideoBuffer} style={{width: 0, height: 0}}/>
 			<button onClick={() => {
-				cameraEnabled = !cameraEnabled;
-			}}>On/Off
-			</button>
-			<button onClick={() => {
-				cropGetFaceImageVideo(params.canvasRef.current!, params.outputCanvasRef.current!, boundingBox);
+				cropGetFaceImageVideo(canvasVideoBuffer.current!, params.outputCanvasRef.current!, boundingBox);
 			}}>Crop face
 			</button>
 		</div>);

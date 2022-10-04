@@ -1,12 +1,15 @@
 import type {RefObject} from 'react';
 import React, {useEffect} from 'react';
-import tfjs from '@tensorflow/tfjs';
+import {loadLayersModel, tensor, browser} from '@tensorflow/tfjs';
+import {urlFaceRecognitionModel} from '../constants/links';
+import {lfwArray10Images} from '../constants/lfw-array';
 
 type PredictPanelParams = {
 	canvasRef: RefObject<HTMLCanvasElement>;
 };
 
 const result = '';
+const model = loadLayersModel(urlFaceRecognitionModel);
 
 const InputImagePanel = (params: PredictPanelParams) => {
 	useEffect(() => {
@@ -19,8 +22,10 @@ const InputImagePanel = (params: PredictPanelParams) => {
 			<textarea value={result} readOnly={true}/>
 			<button onClick={() => {
 				if (params.canvasRef.current !== null) {
-					const imageData = getImageData(params.canvasRef.current);
-					console.log(imageData);
+					const imageData: ImageData = getImageData(params.canvasRef.current);
+					const tfImage = browser.fromPixels(imageData, 3).expandDims(0);
+					const prediction = model.then(model => model.predict(tfImage));
+					console.log(prediction);
 				}
 			}}>Predict
 			</button>

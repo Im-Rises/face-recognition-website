@@ -1,7 +1,6 @@
 import type {RefObject} from 'react';
 import React, {useEffect} from 'react';
 import WebcamFaceDetector from './WebcamFaceDetector';
-import InputImagePanel from './InputImagePanel';
 import PredictPanel from './PredictPanel';
 
 const canvasBufferRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
@@ -13,7 +12,6 @@ const App = (): JSX.Element => (
 			<h1 className={'title'}>Face Recognition</h1>
 		</div>
 		<WebcamFaceDetector canvasRef={canvasBufferRef} outputCanvasRef={croppedImageRef}/>
-		<InputImagePanel outputCanvasRef={croppedImageRef}/>
 		<PredictPanel canvasRef={croppedImageRef}/>
 	</div>
 );
