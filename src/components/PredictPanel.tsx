@@ -21,12 +21,24 @@ const InputImagePanel = (params: PredictPanelParams) => {
 			<canvas ref={params.canvasRef}/>
 			<textarea value={result} readOnly={true}/>
 			<button onClick={() => {
-				if (params.canvasRef.current !== null) {
-					const imageData: ImageData = getImageData(params.canvasRef.current);
-					const tfImage = browser.fromPixels(imageData, 3).expandDims(0);
-					const prediction = model.then(model => model.predict(tfImage));
-					console.log(prediction);
-				}
+				void model.then(model => {
+					console.log('Model loaded');
+					model.summary();
+					const input = tensor(lfwArray10Images);
+					const output = model.predict(input);
+					console.log(output);
+				});
+				// If (params.canvasRef.current !== null) {
+				// 	const imageData: ImageData = getImageData(params.canvasRef.current);
+				// 	const tfImage = browser.fromPixels(imageData, 3).expandDims(0);
+				// 	const prediction = model.then(model => model.predict(tfImage));
+				// 	void prediction.then(prediction => {
+				// 		// Array.from(prediction.toString());
+				// 		console.log(prediction.toString());
+				// 		console.log('here');
+				// 	});
+				// 	console.log(prediction);
+				// }
 			}}>Predict
 			</button>
 		</div>
