@@ -3,10 +3,10 @@ import React, {useEffect} from 'react';
 import Webcam from 'react-webcam';
 import type {CameraOptions} from 'react-use-face-detection';
 import {useFaceDetection} from 'react-use-face-detection';
-import type {NormalizedRect} from '@mediapipe/face_detection';
 import FaceDetection from '@mediapipe/face_detection';
 import {Camera} from '@mediapipe/camera_utils';
 import {drawInCanvas, drawRectangle, cropGetFaceImageVideo} from '../canvas-handler/canvas-handler';
+import './WebcamFaceDetector.css';
 
 const canvasVideoBuffer: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
@@ -42,8 +42,9 @@ const WebcamFaceDetector = (params: CameraParams) => {
 	});
 
 	return (
-		<div className={'cam'}>
-			{isLoading ? <p>Loading...</p> : ''}
+		<div className={'webcam-panel'}>
+			{/* {isLoading ? <p>Loading...</p> : ''} */}
+			<p style={isLoading ? {display: 'block'} : {display: 'none'}}>Loading camera...</p>
 			<Webcam
 				ref={webcamRef}
 				style={{width: 0, height: 0}}

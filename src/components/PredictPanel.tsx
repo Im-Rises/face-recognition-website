@@ -4,6 +4,7 @@ import {loadLayersModel, tensor, browser} from '@tensorflow/tfjs';
 import {urlFaceRecognitionModel} from '../constants/links';
 import {lfwArray10Images} from '../constants/lfw-array';
 import {getImageData} from '../canvas-handler/canvas-handler';
+import './PredictPanel.css';
 
 type PredictPanelParams = {
 	canvasRef: RefObject<HTMLCanvasElement>;
@@ -14,7 +15,7 @@ const model = loadLayersModel(urlFaceRecognitionModel);
 
 const PredictPanel = (params: PredictPanelParams) =>
 	(
-		<div>
+		<div className={'predict-panel'}>
 			<canvas ref={params.canvasRef} width={94} height={125}/>
 			<textarea value={result} readOnly={true}/>
 			<button onClick={() => {

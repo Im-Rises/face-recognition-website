@@ -1,0 +1,36 @@
+.App-header {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+
+.App-link {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 2px;
+  color: #A9A9A9;
+  font-size: 9px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+}
+.App-link a {
+  color: gray;
+}
+
+@media (min-width: 500px) {
+  .App-link {
+    transition-duration: 1s;
+  }
+}
+@media (max-width: 500px) {
+  .App-link {
+    transform: translateY(-40px);
+    transition-duration: 1s;
+  }
+}
+
+/*# sourceMappingURL=About.css.map */
