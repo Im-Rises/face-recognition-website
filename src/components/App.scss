@@ -1,31 +1,8 @@
-@use '../style/default' as *;
+.App {
+  height: 100vh;
+  width: 100vw;
 
-.title {
-  font-size: 32px;
-  text-align: center;
-}
-
-.canvas-buffer{
-  width: 40%;
-}
-
-.img-input {
-
-}
-
-crop-face-tab {
-  button {
-
-  }
-
-  img {
-
-  }
-}
-
-output-form {
-
-  button {
-
+  h1, h2 {
+    color: white;
   }
 }

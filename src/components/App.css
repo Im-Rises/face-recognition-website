@@ -1,16 +1,9 @@
-html {
-  font-size: 16px;
-  font-family: "Open Sans", sans-serif;
-  background-color: #ffffff;
+.App {
+  height: 100vh;
+  width: 100vw;
 }
-
-.title {
-  font-size: 32px;
-  text-align: center;
-}
-
-.canvas-buffer {
-  width: 40%;
+.App h1, .App h2 {
+  color: white;
 }
 
 /*# sourceMappingURL=App.css.map */

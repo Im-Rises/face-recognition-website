@@ -6,6 +6,7 @@ import {useFaceDetection} from 'react-use-face-detection';
 import type {NormalizedRect} from '@mediapipe/face_detection';
 import FaceDetection from '@mediapipe/face_detection';
 import {Camera} from '@mediapipe/camera_utils';
+import {drawInCanvas, drawRectangle, cropGetFaceImageVideo} from '../canvas-handler/canvas-handler';
 
 const canvasVideoBuffer: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
@@ -54,27 +55,6 @@ const WebcamFaceDetector = (params: CameraParams) => {
 			}}>Crop face
 			</button>
 		</div>);
-};
-
-const drawInCanvas = (video: HTMLVideoElement, canvas: HTMLCanvasElement) => {
-	const context = canvas.getContext('2d');
-	canvas.width = video.videoWidth;
-	canvas.height = video.videoHeight;
-	context!.drawImage(video, 0, 0, canvas.width, canvas.height);
-};
-
-const drawRectangle = (canvas: HTMLCanvasElement, boundingBox: NormalizedRect[]) => {
-	const context = canvas.getContext('2d');
-	context!.beginPath();
-	context!.lineWidth = 2;
-	context!.strokeStyle = 'red';
-	context!.rect(boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height);
-	context!.stroke();
-};
-
-const cropGetFaceImageVideo = (canvas: HTMLCanvasElement, outputCanvas: HTMLCanvasElement, boundingBox: NormalizedRect[]) => {
-	const croppedContext = outputCanvas.getContext('2d');
-	croppedContext!.drawImage(canvas, boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height, 0, 0, 100, 100);
 };
 
 export default WebcamFaceDetector;
