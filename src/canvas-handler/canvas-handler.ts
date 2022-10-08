@@ -3,6 +3,8 @@ import type {NormalizedRect} from '@mediapipe/face_detection';
 const imgModelWidth = 94;
 const imgModelHeight = 125;
 
+const nbOutput = 10;
+
 const drawInCanvas = (video: HTMLVideoElement, canvas: HTMLCanvasElement) => {
 	const context = canvas.getContext('2d');
 	canvas.width = video.videoWidth;
@@ -29,4 +31,4 @@ const getImageData = (canvas: HTMLCanvasElement): ImageData => {
 	return ctx!.getImageData(0, 0, canvas.width, canvas.height);
 };
 
-export {drawInCanvas, drawRectangle, cropGetFaceImageVideo, getImageData, imgModelWidth, imgModelHeight};
+export {drawInCanvas, drawRectangle, cropGetFaceImageVideo, getImageData, imgModelWidth, imgModelHeight, nbOutput};

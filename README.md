@@ -22,24 +22,90 @@ Click on the following link to go to the website:
 It is programmed in Javascript, TypeScript and React for the web part and uses TensorFlow and OpenCV for the AI and
 video part. It works with Windows, Linux, MacOs, Android and iOS.
 
-<!--
-Should I use SASS or CSS?
--->
+The model is based on the model I trained in the following repository:  
+<https://github.com/Im-Rises/face_recognition_cnn/main>
 
 ## Screenshots
 
 Placeholder
 
-## Project architecture
-
-Placeholder
-
-You can find the source code in the `main`, `staging`, and `develop` branches. The build website is in the `gh-pages`
-branch.
-
 ## Quick Start
 
 Placeholder
+
+## Project architecture
+
+You can find the source code in the `main` and `develop` branches. The build website is in the `gh-pages`
+branch.
+
+## Project Architecture
+
+~~~
+PhysicalEngine
+├── .github
+|  ├── labels.yml
+|  ├── release.yml
+│  ├── workflows
+│  │   |── cmake.yml
+│  │   |── codeql.yml
+│  │   |── cpp-cmake-publish.yml
+│  │   |── dependency-review.yml
+│  │   |── greetings.yml
+│  │   |── label.yml
+│  │   |── stale.yml
+├── dependencies
+|  ├── glad
+|  ├── glfw
+|  ├── glfwglm
+|  ├── imgui
+|  ├── stb
+├── PhysicalEngine
+|  ├── Integrable
+│  │   |── *
+|  ├── Integrator
+│  │   |── *
+|  ├── Particule
+│  │   |── *
+|  ├── Scene
+│  │   |── *
+|  ├── CMakeLists.txt
+|  ├── InputManager.cpp
+|  ├── InputManager.h
+|  ├── main.cpp
+|  ├── PhysicalEngine.cpp
+|  ├── PhysicalEngine.h
+├── test
+|  ├── TestParticule
+│  │   |── *
+|  ├── CMakeLists.txt
+|  ├── integratorTest.cpp
+|  ├── particuleTest.cpp
+├── .clang-format
+├── .editorconfig
+├── .gitattributes
+├── .gitignore
+├── CMakelists.txt
+├── CMakePresets.json
+├── CMakeSettings.json
+├── imgui.ini
+├── README.md
+~~~
+
+## Dependencies
+
+[//]: # (- GLFW)
+
+[//]: # (- Glad)
+
+[//]: # (- OpenGl3)
+
+[//]: # (- Dear ImGui)
+
+[//]: # (- CMake)
+
+[//]: # (- C++14)
+
+[//]: # (- C++ compiler &#40;MSVC, Mingw, ...&#41;)
 
 ## Deployment
 
