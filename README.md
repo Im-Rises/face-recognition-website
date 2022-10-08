@@ -7,8 +7,6 @@
     <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="tensorflowLogo" style="height:50px;">
     <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt="scssLogo" style="height:50px;">
     <img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white" alt="cssLogo" style="height:50px;">
-
-[//]: # (   <img src="https://user-images.githubusercontent.com/59691442/172961027-fd9185a5-da77-46e3-97b1-54e99e242822.png" alt="opencvLogo" style="height:50px;">)
 </p>
 
 ## Description
@@ -25,87 +23,87 @@ video part. It works with Windows, Linux, MacOs, Android and iOS.
 The model is based on the model I trained in the following repository:  
 <https://github.com/Im-Rises/face_recognition_cnn/main>
 
+> **Note:**
+> This is still a work in progress, the model is not perfect, and the website is not finished yet.
+
 ## Screenshots
 
-Placeholder
+![prediction_arnold](https://user-images.githubusercontent.com/59691442/194687082-d2ffef68-6ebd-4e24-b4d6-9dec022ced56.png)
 
-## Quick Start
-
-Placeholder
+Sorry for the quality of the image, but it's the only one I have.
 
 ## Project architecture
 
 You can find the source code in the `main` and `develop` branches. The build website is in the `gh-pages`
 branch.
 
-## Project Architecture
-
 ~~~
 PhysicalEngine
 ├── .github
-|  ├── labels.yml
-|  ├── release.yml
 │  ├── workflows
-│  │   |── cmake.yml
 │  │   |── codeql.yml
-│  │   |── cpp-cmake-publish.yml
 │  │   |── dependency-review.yml
+│  │   |── eslint.yml
 │  │   |── greetings.yml
 │  │   |── label.yml
+│  │   |── node.yml
 │  │   |── stale.yml
-├── dependencies
-|  ├── glad
-|  ├── glfw
-|  ├── glfwglm
-|  ├── imgui
-|  ├── stb
-├── PhysicalEngine
-|  ├── Integrable
-│  │   |── *
-|  ├── Integrator
-│  │   |── *
-|  ├── Particule
-│  │   |── *
-|  ├── Scene
-│  │   |── *
-|  ├── CMakeLists.txt
-|  ├── InputManager.cpp
-|  ├── InputManager.h
-|  ├── main.cpp
-|  ├── PhysicalEngine.cpp
-|  ├── PhysicalEngine.h
-├── test
-|  ├── TestParticule
-│  │   |── *
-|  ├── CMakeLists.txt
-|  ├── integratorTest.cpp
-|  ├── particuleTest.cpp
-├── .clang-format
+|  ├── labeler.yml
+|  ├── release.yml
+├── public
+│  ├── favicon.png
+│  ├── index.html
+│  ├── manifest.json
+│  ├── robots.txt
+├── src
+|  ├── canvas-handler
+│  │   |── canvas-handler.ts
+|  ├── components
+│  │   |── About.scss
+│  │   |── About.css
+│  │   |── About.tsx
+│  │   |── App.scss
+│  │   |── App.css
+│  │   |── App.tsx
+│  │   |── PredictPanel.scss
+│  │   |── PredictPanel.css
+│  │   |── PredictPanel.tsx
+│  │   |── WebcamFaceDetector.scss
+│  │   |── WebcamFaceDetector.css
+│  │   |── WebcamFaceDetector.tsx
+|  ├── constants
+│  │   |── lfw-array.ts
+│  │   |── links.ts
+│  ├── reports
+│  │   |── reportWebVitals.ts
+|  ├── settings
+│  │   |── reac-app-env.d.ts
+|  ├── styles
+│  │   |── global.scss
+│  │   |── global.css
+|  ├── test
+│  │   |── App.test.tsx
+│  │   |── setupTests.ts
+|  ├── index.scss
+│  ├── index.css
+│  ├── index.tsx
 ├── .editorconfig
+├── .eslintignore
+├── .eslintrc.js
 ├── .gitattributes
 ├── .gitignore
-├── CMakelists.txt
-├── CMakePresets.json
-├── CMakeSettings.json
-├── imgui.ini
+├── package.json
+├── package-lock.json
 ├── README.md
+├── tsconfig.json
+├── yarn.lock
 ~~~
 
 ## Dependencies
 
-[//]: # (- GLFW)
+The project is using React, TypeScript, JavaScript, TensorFlow, Mediapipe, SCSS, CSS,
 
-[//]: # (- Glad)
-
-[//]: # (- OpenGl3)
-
-[//]: # (- Dear ImGui)
-
-[//]: # (- CMake)
-
-[//]: # (- C++14)
-
-[//]: # (- C++ compiler &#40;MSVC, Mingw, ...&#41;)
+You can find the dependencies in the `dependencies` folder.
 
 ## Deployment
 
