@@ -1,0 +1,16 @@
+$panel-content-width: 90%;
+
+@mixin panel-size($width) {
+  width: $width;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  @media all and (max-width: 720px) {
+    width: 100%;
+
+    textarea {
+      min-height: 200px;
+    }
+  }
+}

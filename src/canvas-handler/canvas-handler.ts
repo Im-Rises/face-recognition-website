@@ -1,5 +1,8 @@
 import type {NormalizedRect} from '@mediapipe/face_detection';
 
+const imgModelWidth = 94;
+const imgModelHeight = 125;
+
 const drawInCanvas = (video: HTMLVideoElement, canvas: HTMLCanvasElement) => {
 	const context = canvas.getContext('2d');
 	canvas.width = video.videoWidth;
@@ -18,7 +21,7 @@ const drawRectangle = (canvas: HTMLCanvasElement, boundingBox: NormalizedRect[])
 
 const cropGetFaceImageVideo = (canvas: HTMLCanvasElement, outputCanvas: HTMLCanvasElement, boundingBox: NormalizedRect[]) => {
 	const croppedContext = outputCanvas.getContext('2d');
-	croppedContext!.drawImage(canvas, boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height, 0, 0, 100, 100);
+	croppedContext!.drawImage(canvas, boundingBox[0].xCenter * canvas.width, boundingBox[0].yCenter * canvas.height, boundingBox[0].width * canvas.width, boundingBox[0].height * canvas.height, 0, 0, imgModelWidth, imgModelHeight);
 };
 
 const getImageData = (canvas: HTMLCanvasElement): ImageData => {
@@ -26,4 +29,4 @@ const getImageData = (canvas: HTMLCanvasElement): ImageData => {
 	return ctx!.getImageData(0, 0, canvas.width, canvas.height);
 };
 
-export {drawInCanvas, drawRectangle, cropGetFaceImageVideo, getImageData};
+export {drawInCanvas, drawRectangle, cropGetFaceImageVideo, getImageData, imgModelWidth, imgModelHeight};

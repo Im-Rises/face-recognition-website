@@ -43,15 +43,15 @@ const WebcamFaceDetector = (params: CameraParams) => {
 
 	return (
 		<div className={'webcam-panel'}>
-			{/* {isLoading ? <p>Loading...</p> : ''} */}
 			<h2>Webcam panel</h2>
+			{/* {isLoading ? <p>Loading...</p> : ''} */}
 			<p style={isLoading ? {display: 'block'} : {display: 'none'}}>Loading camera...</p>
 			<Webcam
 				ref={webcamRef}
 				style={{width: 0, height: 0}}
 			/>
 			<canvas ref={canvasVideoBufferRef} style={{width: 0, height: 0}}/>
-			<canvas ref={canvasVideoFaceRectangleRef}/>
+			<canvas ref={canvasVideoFaceRectangleRef} className={'video-output'}/>
 			<button onClick={() => {
 				cropGetFaceImageVideo(canvasVideoBufferRef.current!, params.outputCanvasRef.current!, boundingBox);
 			}}>Crop face

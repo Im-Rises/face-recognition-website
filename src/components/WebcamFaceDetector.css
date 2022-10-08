@@ -4,5 +4,19 @@
   flex-flow: column;
   align-items: center;
 }
+@media all and (max-width: 720px) {
+  .webcam-panel {
+    width: 100%;
+  }
+  .webcam-panel textarea {
+    min-height: 200px;
+  }
+}
+.webcam-panel .video-output {
+  width: 90%;
+}
+.webcam-panel button {
+  width: 90%;
+}
 
 /*# sourceMappingURL=WebcamFaceDetector.css.map */

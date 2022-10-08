@@ -4,13 +4,26 @@
   flex-flow: column;
   align-items: center;
 }
-.predict-panel .croped-face {
+@media all and (max-width: 720px) {
+  .predict-panel {
+    width: 100%;
+  }
+  .predict-panel textarea {
+    min-height: 200px;
+  }
+}
+.predict-panel canvas {
+  background-color: white;
   width: 20%;
+  margin-bottom: 5%;
 }
 .predict-panel textarea {
-  width: 80%;
+  width: 90%;
   height: 100%;
   resize: none;
+}
+.predict-panel button {
+  width: 90%;
 }
 
 /*# sourceMappingURL=PredictPanel.css.map */

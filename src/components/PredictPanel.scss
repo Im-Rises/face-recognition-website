@@ -1,16 +1,21 @@
-.predict-panel {
-  width: 50%;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+@use "../../styles/global" as g;
 
-  .croped-face {
+.predict-panel {
+  @include g.panel-size(50%);
+
+  canvas {
+    background-color: white;
     width: 20%;
+    margin-bottom: 5%;
   }
 
   textarea {
-    width: 80%;
+    width: g.$panel-content-width;
     height: 100%;
     resize: none;
+  }
+
+  button {
+    width: g.$panel-content-width;
   }
 }
