@@ -23,7 +23,7 @@ video part. It works with Windows, Linux, MacOs, Android and iOS.
 The model is based on the model I trained in the following repository:  
 <https://github.com/Im-Rises/face_recognition_cnn/main>
 
-> **Note:**
+> **Note**  
 > This is still a work in progress, the model is not perfect, and the website is not finished yet.
 
 ## Screenshots
