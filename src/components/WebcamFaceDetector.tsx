@@ -8,10 +8,10 @@ import {Camera} from '@mediapipe/camera_utils';
 import {drawInCanvas, drawRectangle, cropGetFaceImageVideo} from '../canvas-handler/canvas-handler';
 import './WebcamFaceDetector.css';
 
-const canvasVideoBuffer: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
+const canvasVideoFaceRectangleRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
+const canvasVideoBufferRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
 type CameraParams = {
-	canvasRef: RefObject<HTMLCanvasElement>;
 	outputCanvasRef: RefObject<HTMLCanvasElement>;
 };
 
@@ -32,27 +32,28 @@ const WebcamFaceDetector = (params: CameraParams) => {
 	});
 
 	useEffect(() => {
-		const canvas = params.canvasRef.current;
+		const canvas = canvasVideoFaceRectangleRef.current!;
 		const video = (webcamRef! as RefObject<Webcam>).current;
-		drawInCanvas(video!.video!, canvas!);
-		drawInCanvas(video!.video!, canvasVideoBuffer.current!);
+		drawInCanvas(video!.video!, canvas);
+		drawInCanvas(video!.video!, canvasVideoBufferRef.current!);
 		if (facesDetected) {
-			drawRectangle(canvas!, boundingBox);
+			drawRectangle(canvas, boundingBox);
 		}
 	});
 
 	return (
 		<div className={'webcam-panel'}>
 			{/* {isLoading ? <p>Loading...</p> : ''} */}
+			<h2>Webcam panel</h2>
 			<p style={isLoading ? {display: 'block'} : {display: 'none'}}>Loading camera...</p>
 			<Webcam
 				ref={webcamRef}
 				style={{width: 0, height: 0}}
 			/>
-			<canvas ref={params.canvasRef}/>
-			<canvas ref={canvasVideoBuffer} style={{width: 0, height: 0}}/>
+			<canvas ref={canvasVideoBufferRef} style={{width: 0, height: 0}}/>
+			<canvas ref={canvasVideoFaceRectangleRef}/>
 			<button onClick={() => {
-				cropGetFaceImageVideo(canvasVideoBuffer.current!, params.outputCanvasRef.current!, boundingBox);
+				cropGetFaceImageVideo(canvasVideoBufferRef.current!, params.outputCanvasRef.current!, boundingBox);
 			}}>Crop face
 			</button>
 		</div>);

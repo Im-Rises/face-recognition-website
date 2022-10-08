@@ -2,6 +2,7 @@
   width: 50%;
   display: flex;
   flex-flow: column;
+  align-items: center;
 }
 
 /*# sourceMappingURL=WebcamFaceDetector.css.map */

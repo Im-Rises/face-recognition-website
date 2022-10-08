@@ -1,6 +1,16 @@
 .predict-panel {
   width: 50%;
   display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.predict-panel .croped-face {
+  width: 20%;
+}
+.predict-panel textarea {
+  width: 80%;
+  height: 100%;
+  resize: none;
 }
 
 /*# sourceMappingURL=PredictPanel.css.map */

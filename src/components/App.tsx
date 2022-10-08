@@ -5,7 +5,6 @@ import PredictPanel from './PredictPanel';
 import './App.css';
 import About from './About';
 
-const canvasBufferRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 const croppedImageRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
 const App = (): JSX.Element => (
@@ -13,7 +12,7 @@ const App = (): JSX.Element => (
 		<About/>
 		<h1 className={'App-header'}>Face Recognition</h1>
 		<div className={'App'}>
-			<WebcamFaceDetector canvasRef={canvasBufferRef} outputCanvasRef={croppedImageRef}/>
+			<WebcamFaceDetector outputCanvasRef={croppedImageRef}/>
 			<PredictPanel canvasRef={croppedImageRef}/>
 		</div>
 	</div>

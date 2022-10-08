@@ -16,7 +16,8 @@ const model = loadLayersModel(urlFaceRecognitionModel);
 const PredictPanel = (params: PredictPanelParams) =>
 	(
 		<div className={'predict-panel'}>
-			<canvas ref={params.canvasRef} width={94} height={125}/>
+			<h2>Prediction panel</h2>
+			<canvas ref={params.canvasRef} width={94} height={125} className={'croped-face'}/>
 			<textarea value={result} readOnly={true}/>
 			<button onClick={() => {
 				void model.then(model => {
