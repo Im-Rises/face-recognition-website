@@ -1,0 +1,13 @@
+@use "../styles/global" as g;
+
+.webcam-panel {
+  @include g.panel-size(50%);
+
+  .video-output {
+    width: g.$panel-content-width;
+  }
+
+  button {
+    width: g.$panel-content-width;
+  }
+}

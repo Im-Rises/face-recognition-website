@@ -1,0 +1,29 @@
+.predict-panel {
+  width: 50%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+@media all and (max-width: 720px) {
+  .predict-panel {
+    width: 100%;
+  }
+  .predict-panel textarea {
+    min-height: 200px;
+  }
+}
+.predict-panel canvas {
+  background-color: white;
+  width: 20%;
+  margin-bottom: 5%;
+}
+.predict-panel textarea {
+  width: 90%;
+  height: 100%;
+  resize: none;
+}
+.predict-panel button {
+  width: 90%;
+}
+
+/*# sourceMappingURL=PredictPanel.css.map */
