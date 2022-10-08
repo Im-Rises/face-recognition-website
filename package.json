@@ -61,5 +61,8 @@
   },
   "xo": {
     "extends": "xo-react"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }
